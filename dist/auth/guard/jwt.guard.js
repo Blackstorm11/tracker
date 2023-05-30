@@ -14,6 +14,9 @@ let JwtAuthGuard = class JwtAuthGuard extends (0, passport_1.AuthGuard)('jwt') {
     canActivate(context) {
         const ctx = context.switchToHttp();
         const request = ctx.getRequest();
+        if (request.url.includes('/email/')) {
+            return true;
+        }
         for (let x = 0; x < constants_1.Constants.URLS.length; x++) {
             if (request.url == constants_1.Constants.URLS[x])
                 return true;

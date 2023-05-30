@@ -39,5 +39,9 @@ __decorate([
     (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], UpdateTrackDto.prototype, "public_gists", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateTrackDto.prototype, "password", void 0);
 exports.UpdateTrackDto = UpdateTrackDto;
 //# sourceMappingURL=update-track.dto.js.map

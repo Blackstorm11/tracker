@@ -9,6 +9,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TrackModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const nest_access_control_1 = require("nest-access-control");
+const user_roles_1 = require("../auth/user.roles");
 const track_entity_1 = require("./entities/track.entity");
 const track_controller_1 = require("./track.controller");
 const track_service_1 = require("./track.service");
@@ -16,7 +18,7 @@ let TrackModule = class TrackModule {
 };
 TrackModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([track_entity_1.Track]),],
+        imports: [typeorm_1.TypeOrmModule.forFeature([track_entity_1.Track]), nest_access_control_1.AccessControlModule.forRoles(user_roles_1.roles)],
         controllers: [track_controller_1.TrackController],
         providers: [track_service_1.TrackService],
         exports: [track_service_1.TrackService]

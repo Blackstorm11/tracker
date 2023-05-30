@@ -13,6 +13,9 @@ exports.TrackDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 class TrackDto {
+    static findOneBy(arg0) {
+        throw new Error('Method not implemented.');
+    }
 }
 __decorate([
     (0, class_validator_1.IsString)(),

@@ -30,7 +30,7 @@ let TrackService = class TrackService {
         track.UniversityNo = createTrackRequeat.UniversityNo;
         track.password = createTrackRequeat.password;
         track.semester = createTrackRequeat.semester;
-        track.images = createTrackRequeat.images;
+        track.images = createTrackRequeat.images || [];
         await this.trackRepository.save(track);
         const trackDTO = new track_dto_1.TrackDto();
         trackDTO._id = track._id;
@@ -43,10 +43,32 @@ let TrackService = class TrackService {
         trackDTO.rollNo = track.rollNo;
         return trackDTO;
     }
+    async getUserImages(username) {
+        const track = await this.trackRepository
+            .createQueryBuilder('track')
+            .where('track.name = :username', { username })
+            .getOne();
+        if (!track) {
+            throw new Error('User not found');
+        }
+        return track.images;
+    }
+    async findAllRollNo() {
+        const tracks = await this.trackRepository.find({ select: ['rollNo'] });
+        return tracks.map((track) => track.rollNo);
+    }
     async findAll() {
         const track = await this.trackRepository.find();
         const trackDTO = track.map(x => this.entityToDto(x));
         return trackDTO;
+    }
+    async updateOne(email, newPassword) {
+        const track = await this.trackRepository.findOne({ where: { email } });
+        if (!track) {
+            throw new Error('User not found');
+        }
+        track.password = newPassword;
+        return this.trackRepository.save(track);
     }
     findTrackById(id) {
         return this.trackRepository.findOneOrFail({ where: { _id: id } });

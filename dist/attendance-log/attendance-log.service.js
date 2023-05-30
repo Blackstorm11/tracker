@@ -23,7 +23,7 @@ let AttendanceLogService = class AttendanceLogService {
         this.attendancelogRepository = attendancelogRepository;
     }
     async create(createAttendanceLogRequest) {
-        if (createAttendanceLogRequest.person.includes("unknown")) {
+        if (typeof createAttendanceLogRequest.person === 'string' && createAttendanceLogRequest.person.includes("unknown")) {
             return null;
         }
         const attendanceLogs = await this.attendancelogRepository.find({
@@ -34,11 +34,13 @@ let AttendanceLogService = class AttendanceLogService {
         let attendanceLog = new attendance_log_entity_1.AttendanceLog();
         attendanceLog.person = createAttendanceLogRequest.person;
         attendanceLog.Status = createAttendanceLogRequest.Status;
+        attendanceLog.created_at = createAttendanceLogRequest.created_at;
         await this.attendancelogRepository.save(attendanceLog);
         const attendanceDTO = new attendance_dto_1.AttendanceDTO();
         attendanceDTO._id = attendanceLog._id;
         attendanceDTO.Status = attendanceLog.Status;
         attendanceDTO.person = attendanceLog.person;
+        attendanceDTO.created_at = attendanceLog.created_at;
         return attendanceDTO;
     }
     findAll() {

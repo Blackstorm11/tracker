@@ -9,5 +9,6 @@ export declare class UpdateTrackDto extends UpdateTrackDto_base {
     status: TrackStatus;
     public_repos: number;
     public_gists: number;
+    password?: string;
 }
 export {};

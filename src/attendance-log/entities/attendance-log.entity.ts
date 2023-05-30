@@ -1,4 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { format } from 'date-fns';
+
 @Entity("Attendance Log")
 export class AttendanceLog {
  @PrimaryGeneratedColumn('uuid')
@@ -9,8 +11,23 @@ export class AttendanceLog {
 
  @Column("varchar",{name:"status", default: "p" })
  Status:string;
- @UpdateDateColumn({type: 'timestamp', default:() => 'CURRENT_TIMESTAMP(2)',select:false})
- updateTime:Date;
- @CreateDateColumn({ type: 'timestamp' })
- created_at: Date;
+
+
+@Column()
+created_at: string;
+
+@Column({ type: 'timestamp' })
+updateTime: Date;
+
+@BeforeInsert()
+@BeforeUpdate()
+setUpdateTimestamp() {
+  this.updateTime = new Date();
+}
+
+get formattedUpdateTime(): string {
+  return format(this.updateTime, 'HH:mm:ss.SS');
+}
+
+
 }

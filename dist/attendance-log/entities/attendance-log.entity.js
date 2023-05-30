@@ -11,7 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AttendanceLog = void 0;
 const typeorm_1 = require("typeorm");
+const date_fns_1 = require("date-fns");
 let AttendanceLog = class AttendanceLog {
+    setUpdateTimestamp() {
+        this.updateTime = new Date();
+    }
+    get formattedUpdateTime() {
+        return (0, date_fns_1.format)(this.updateTime, 'HH:mm:ss.SS');
+    }
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
@@ -26,13 +33,20 @@ __decorate([
     __metadata("design:type", String)
 ], AttendanceLog.prototype, "Status", void 0);
 __decorate([
-    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(2)', select: false }),
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], AttendanceLog.prototype, "created_at", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'timestamp' }),
     __metadata("design:type", Date)
 ], AttendanceLog.prototype, "updateTime", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ type: 'timestamp' }),
-    __metadata("design:type", Date)
-], AttendanceLog.prototype, "created_at", void 0);
+    (0, typeorm_1.BeforeInsert)(),
+    (0, typeorm_1.BeforeUpdate)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AttendanceLog.prototype, "setUpdateTimestamp", null);
 AttendanceLog = __decorate([
     (0, typeorm_1.Entity)("Attendance Log")
 ], AttendanceLog);

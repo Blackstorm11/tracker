@@ -9,6 +9,8 @@ import { AuthModule } from './auth/auth.module';
 
 import { RegistrationModule } from './registration/registration.module';
 import { AttendanceLogModule } from './attendance-log/attendance-log.module';
+import { AccessControlModule } from 'nest-access-control';
+import { roles } from './auth/user.roles';
 
 
 
@@ -37,7 +39,7 @@ import { AttendanceLogModule } from './attendance-log/attendance-log.module';
       inject: [ConfigService],
     }),
     SusersModule,
-  
+    AccessControlModule.forRoles(roles),
     RegistrationModule,
     AttendanceLogModule,
   ],

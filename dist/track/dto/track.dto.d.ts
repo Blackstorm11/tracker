@@ -1,4 +1,5 @@
 export declare class TrackDto {
+    static findOneBy(arg0: (track: any) => boolean): TrackDto;
     _id: string;
     name: string;
     email: string;

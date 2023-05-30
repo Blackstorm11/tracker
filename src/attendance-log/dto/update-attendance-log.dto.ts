@@ -11,6 +11,8 @@ export class UpdateAttendanceLogDto extends PartialType(CreateAttendanceLogDto) 
   
    @Column("varchar",{name:"status", default: "p" })
    Status:string;
-   @UpdateDateColumn({type: 'timestamp', default:() => 'CURRENT_TIMESTAMP(2)',select:false})
+   @UpdateDateColumn({type: 'timestamp'})
    updateTime:Date;
+   @Column()
+   created_at?: string;
 }

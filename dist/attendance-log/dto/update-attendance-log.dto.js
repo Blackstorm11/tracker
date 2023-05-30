@@ -28,8 +28,12 @@ __decorate([
     __metadata("design:type", String)
 ], UpdateAttendanceLogDto.prototype, "Status", void 0);
 __decorate([
-    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(2)', select: false }),
+    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp' }),
     __metadata("design:type", Date)
 ], UpdateAttendanceLogDto.prototype, "updateTime", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], UpdateAttendanceLogDto.prototype, "created_at", void 0);
 exports.UpdateAttendanceLogDto = UpdateAttendanceLogDto;
 //# sourceMappingURL=update-attendance-log.dto.js.map

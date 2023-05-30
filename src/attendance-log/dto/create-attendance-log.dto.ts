@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { Column, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
 
 export class CreateAttendanceLogDto {
    @ApiProperty()
@@ -14,6 +14,10 @@ export class CreateAttendanceLogDto {
    @Column("varchar",{name:"status", default: "p" })
    Status:string;
    @ApiProperty()
-   @UpdateDateColumn({type: 'timestamp', default:() => 'CURRENT_TIMESTAMP(2)',select:false})
-   updateTime:Date;
+   @UpdateDateColumn({ type: 'timestamp' })
+updateTime: Date;
+@ApiProperty()
+@Column()
+created_at: string;
+
 }

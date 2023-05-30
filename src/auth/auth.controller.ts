@@ -56,4 +56,5 @@ export class AuthController {
   
     return { token: this.jwtService.sign(payload) };
   }
+ 
 }

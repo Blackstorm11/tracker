@@ -1,3 +1,4 @@
+import { UserRoles } from "src/auth/user.roles";
 import { Suser } from "src/susers/entities/suser.entity";
 import { BaseEntity } from "typeorm";
 export declare enum TrackStatus {
@@ -14,6 +15,7 @@ export declare class Track extends BaseEntity {
     email: string;
     password: string;
     images: string[];
+    roles: UserRoles;
     suser: Suser[];
     updateTime: Date;
 }

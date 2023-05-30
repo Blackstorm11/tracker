@@ -6,7 +6,10 @@ export declare class TrackService {
     private trackRepository;
     constructor(trackRepository: Repository<Track>);
     create(createTrackRequeat: CreateTrackDto): Promise<TrackDto>;
+    getUserImages(username: string): Promise<string[]>;
+    findAllRollNo(): Promise<string[]>;
     findAll(): Promise<TrackDto[]>;
+    updateOne(email: string, newPassword: string): Promise<Track>;
     findTrackById(id: string): Promise<Track>;
     findTrackByEmail(email: string): Promise<Track>;
     getOne(trackid: string): Promise<Track>;

@@ -31,8 +31,13 @@ __decorate([
 ], CreateAttendanceLogDto.prototype, "Status", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(2)', select: false }),
+    (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp' }),
     __metadata("design:type", Date)
 ], CreateAttendanceLogDto.prototype, "updateTime", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], CreateAttendanceLogDto.prototype, "created_at", void 0);
 exports.CreateAttendanceLogDto = CreateAttendanceLogDto;
 //# sourceMappingURL=create-attendance-log.dto.js.map

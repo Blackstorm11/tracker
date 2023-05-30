@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Track = exports.TrackStatus = void 0;
+const user_roles_1 = require("../../auth/user.roles");
 const suser_entity_1 = require("../../susers/entities/suser.entity");
 const typeorm_1 = require("typeorm");
 var TrackStatus;
@@ -52,6 +53,10 @@ __decorate([
     (0, typeorm_1.Column)('simple-array', { nullable: true }),
     __metadata("design:type", Array)
 ], Track.prototype, "images", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'enum', enum: user_roles_1.UserRoles, default: user_roles_1.UserRoles.Reader }),
+    __metadata("design:type", String)
+], Track.prototype, "roles", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(() => suser_entity_1.Suser, (suser) => suser.track),
     __metadata("design:type", Array)

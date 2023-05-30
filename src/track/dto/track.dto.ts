@@ -3,6 +3,9 @@ import { IsArray, IsInt, IsString } from "class-validator";
 import { TrackStatus } from "../entities/track.entity";
 
 export class TrackDto{
+    static findOneBy(arg0: (track: any) => boolean): TrackDto {
+      throw new Error('Method not implemented.');
+    }
     @IsString()
     _id:string
     @ApiProperty()
@@ -31,5 +34,7 @@ export class TrackDto{
     @ApiProperty()
     @IsArray()
     images:string[]
+
+    
 
 }

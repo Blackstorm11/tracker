@@ -1,3 +1,4 @@
+import { UserRoles } from "src/auth/user.roles";
 import { Suser } from "src/susers/entities/suser.entity";
 import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, ViewColumn } from "typeorm";
 
@@ -59,6 +60,8 @@ export class Track extends BaseEntity{
 
       @Column('simple-array', { nullable: true })
       images: string[];
+      @Column({type:'enum', enum:UserRoles, default:UserRoles.Reader})
+      roles:UserRoles
 
     @OneToMany(()=> Suser,(suser)=>suser.track)
     suser:Suser[];

@@ -17,12 +17,26 @@ const common_1 = require("@nestjs/common");
 const track_service_1 = require("./track.service");
 const create_track_dto_1 = require("./dto/create-track.dto");
 const swagger_1 = require("@nestjs/swagger");
+const passport_1 = require("@nestjs/passport");
+const nest_access_control_1 = require("nest-access-control");
 let TrackController = class TrackController {
     constructor(trackService) {
         this.trackService = trackService;
     }
     async create(createTrackRequeat) {
         const resp = await this.trackService.create(createTrackRequeat);
+    }
+    async getUserImages(username) {
+        const userImages = await this.trackService.getUserImages(username);
+        const response = userImages.map((image, index) => ({
+            label: `${username}_${index + 1}.png`,
+            image,
+        }));
+        return response;
+    }
+    async getAllRollNo() {
+        const rollNo = await this.trackService.findAllRollNo();
+        return rollNo;
     }
     async findAll() {
         const resp = await this.trackService.findAll();
@@ -35,12 +49,16 @@ let TrackController = class TrackController {
         const resp = await this.trackService.getOne(trackid);
         return resp;
     }
+    async updatePassword(email, newPassword) {
+        return this.trackService.updateOne(email, newPassword);
+    }
     async remove(trackid) {
         const resp = await this.trackService.removebyid(trackid);
         return resp;
     }
 };
 __decorate([
+    (0, swagger_1.ApiSecurity)("JWT-auth"),
     (0, common_1.Post)('/add_user'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -48,12 +66,35 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TrackController.prototype, "create", null);
 __decorate([
+    (0, swagger_1.ApiSecurity)("JWT-auth"),
+    (0, common_1.Get)(':username/images'),
+    __param(0, (0, common_1.Param)('username')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], TrackController.prototype, "getUserImages", null);
+__decorate([
+    (0, swagger_1.ApiSecurity)("JWT-auth"),
+    (0, common_1.Get)('rollNo'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], TrackController.prototype, "getAllRollNo", null);
+__decorate([
+    (0, swagger_1.ApiSecurity)("JWT-auth"),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt'), nest_access_control_1.ACGuard),
+    (0, nest_access_control_1.UseRoles)({
+        possession: 'any',
+        action: 'create',
+        resource: 'get'
+    }),
     (0, common_1.Get)('/all'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], TrackController.prototype, "findAll", null);
 __decorate([
+    (0, swagger_1.ApiSecurity)("JWT-auth"),
     (0, common_1.Get)('/:email'),
     __param(0, (0, common_1.Param)("email")),
     __metadata("design:type", Function),
@@ -68,6 +109,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], TrackController.prototype, "find", null);
+__decorate([
+    (0, common_1.Put)('email/update-password/:email'),
+    __param(0, (0, common_1.Param)('email')),
+    __param(1, (0, common_1.Body)('newPassword')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], TrackController.prototype, "updatePassword", null);
 __decorate([
     (0, swagger_1.ApiSecurity)("JWT-auth"),
     (0, common_1.Delete)('/delete/:id'),

@@ -26,7 +26,7 @@ export class AttendanceLogService {
   //   return attendanceDTO;
   // }
   public async create(createAttendanceLogRequest: CreateAttendanceLogDto) {
-    if (createAttendanceLogRequest.person.includes("unknown")) {
+    if (typeof createAttendanceLogRequest.person === 'string' && createAttendanceLogRequest.person.includes("unknown")) {
       // Don't save if person contains "unknown"
       return null;
     }
@@ -39,13 +39,15 @@ export class AttendanceLogService {
     let attendanceLog:AttendanceLog= new AttendanceLog()
     attendanceLog.person = createAttendanceLogRequest.person;
     attendanceLog.Status=createAttendanceLogRequest.Status;
+    attendanceLog.created_at=createAttendanceLogRequest.created_at;
   
     await this.attendancelogRepository.save(attendanceLog);
   
     const attendanceDTO=new AttendanceDTO();
     attendanceDTO._id=attendanceLog._id;
     attendanceDTO.Status=attendanceLog.Status;
-    attendanceDTO.person=attendanceLog.person
+    attendanceDTO.person=attendanceLog.person;
+    attendanceDTO.created_at=attendanceLog.created_at;
     return attendanceDTO;
   }
   

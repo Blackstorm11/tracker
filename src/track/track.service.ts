@@ -18,16 +18,19 @@ export class TrackService {
     // track.login=createTrackRequeat.login;
     track.name=createTrackRequeat.name;
     track.email=createTrackRequeat.email;
-    // track.repository=createTrackRequeat.repository;
-    // track.public_repos=createTrackRequeat.public_repos;
-    // track.public_gists=createTrackRequeat.public_gists;
-    // track.status=TrackStatus.Created;
+ 
     track.rollNo=createTrackRequeat.rollNo;
     track.UniversityNo=createTrackRequeat.UniversityNo;
     track.password=createTrackRequeat.password;
     track.semester=createTrackRequeat.semester;
-    track.images=createTrackRequeat.images;
-   
+    track.images=createTrackRequeat.images || [];
+       // track.repository=createTrackRequeat.repository;
+    // track.public_repos=createTrackRequeat.public_repos;
+    // track.public_gists=createTrackRequeat.public_gists;
+    // track.status=TrackStatus.Created;
+
+
+
     await this.trackRepository.save(track);
 
     const trackDTO= new TrackDto();
@@ -45,6 +48,25 @@ export class TrackService {
     // trackDTO.public_gists=track.public_gists;
     // trackDTO.status= track.status;
     return trackDTO;
+    
+  }
+  async getUserImages(username: string): Promise<string[]> {
+    const track = await this.trackRepository
+      .createQueryBuilder('track')
+      .where('track.name = :username', { username })
+      .getOne();
+
+    if (!track) {
+      throw new Error('User not found');
+    }
+
+    return track.images;
+  }
+  //to get all the names of the users
+  async findAllRollNo(): Promise<string[]> {
+    const tracks = await this.trackRepository.find({ select: ['rollNo'] });
+
+    return tracks.map((track) => track.rollNo);
   }
 
   public async findAll() {
@@ -55,13 +77,37 @@ export class TrackService {
 
   }
 
+  // async findAllNames(): Promise<string[]> {
+  //   const tracks = await this.trackRepository.find({ select: ['name'] });
+  //   return tracks.map((track) => track.name);
+  // }
+  
+  //
+  public async updateOne(email: string, newPassword: string): Promise<Track> {
+    
+    const track: Track = await this.trackRepository.findOne({ where: { email } });
+  
+    if (!track) {
+      throw new Error('User not found');
+    }
+  
+    track.password = newPassword;
+  
+    return this.trackRepository.save(track);
+  }
+  
+  
+  
+
   findTrackById(id:string):Promise<Track>{
     return this.trackRepository.findOneOrFail({where: {_id :id}})
   }
   findTrackByEmail(email:string){
     return this.trackRepository.findOne({where:{email:email}});
   }
-
+ 
+  
+  
   public async getOne(trackid: string) {
     const track:Track =await this.trackRepository.findOneBy({_id: trackid});
 
@@ -69,6 +115,9 @@ export class TrackService {
     const trackDTO:TrackDto= this.entityToDto(track)
     return track;
   }
+
+ 
+
   private entityToDto(track: Track): TrackDto {
       const trackDto= new TrackDto();
       trackDto._id=track._id;

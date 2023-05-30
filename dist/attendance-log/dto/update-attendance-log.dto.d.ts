@@ -5,5 +5,6 @@ export declare class UpdateAttendanceLogDto extends UpdateAttendanceLogDto_base 
     person: string;
     Status: string;
     updateTime: Date;
+    created_at?: string;
 }
 export {};
