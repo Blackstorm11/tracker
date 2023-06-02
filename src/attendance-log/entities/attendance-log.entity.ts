@@ -1,5 +1,9 @@
-import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { format } from 'date-fns';
+import { FacultyM } from "src/faculty-m/entities/faculty-m.entity";
+import { Options } from "prettier";
+import { ApiProperty } from "@nestjs/swagger";
+import { IsNotEmpty } from "class-validator";
 
 @Entity("Attendance Log")
 export class AttendanceLog {
@@ -11,7 +15,8 @@ export class AttendanceLog {
 
  @Column("varchar",{name:"status", default: "p" })
  Status:string;
-
+@Column()
+subject:string;
 
 @Column()
 created_at: string;
@@ -28,6 +33,11 @@ setUpdateTimestamp() {
 get formattedUpdateTime(): string {
   return format(this.updateTime, 'HH:mm:ss.SS');
 }
+@ManyToOne(() => FacultyM, (facultyM) => facultyM.attendanceLog)
+@JoinColumn({name:'subject'})
+facultyM: FacultyM[];
 
+@Column()
+facultyMId:string;
 
 }

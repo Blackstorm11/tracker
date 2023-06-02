@@ -36,7 +36,7 @@ import { Suser } from 'src/susers/entities/suser.entity';
 import { Track } from 'src/track/entities/track.entity';
 import { LoginDto } from './dto/login.dto';
 
-type AuthUser = Suser | Track;
+type AuthUser =  Track | Suser ;
 
 @Controller('auth')
 @ApiTags('Login')
@@ -48,12 +48,14 @@ export class AuthController {
   login(@Req() req, @Body() LoginDto: LoginDto) {
     // JWT_token
     const user: AuthUser = req.user;
+    console.log('User Roles:', user.roles); // Log the user roles
     const payload = {
       id: user._id,
       email: user.email,
+      role:user.roles
     };
     console.log(req.user);
-  
+    console.log('Payload:', payload); // Log the payload with the role
     return { token: this.jwtService.sign(payload) };
   }
  

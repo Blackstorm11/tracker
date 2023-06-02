@@ -4,4 +4,6 @@ export declare class AttendanceDTO {
     Status: string;
     updateTime: Date;
     created_at: string;
+    subject: string;
+    facultyMId: string;
 }

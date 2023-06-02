@@ -39,5 +39,13 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], AttendanceDTO.prototype, "created_at", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], AttendanceDTO.prototype, "subject", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], AttendanceDTO.prototype, "facultyMId", void 0);
 exports.AttendanceDTO = AttendanceDTO;
 //# sourceMappingURL=attendance.dto.js.map

@@ -17,8 +17,6 @@ const common_1 = require("@nestjs/common");
 const track_service_1 = require("./track.service");
 const create_track_dto_1 = require("./dto/create-track.dto");
 const swagger_1 = require("@nestjs/swagger");
-const passport_1 = require("@nestjs/passport");
-const nest_access_control_1 = require("nest-access-control");
 let TrackController = class TrackController {
     constructor(trackService) {
         this.trackService = trackService;
@@ -82,12 +80,6 @@ __decorate([
 ], TrackController.prototype, "getAllRollNo", null);
 __decorate([
     (0, swagger_1.ApiSecurity)("JWT-auth"),
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt'), nest_access_control_1.ACGuard),
-    (0, nest_access_control_1.UseRoles)({
-        possession: 'any',
-        action: 'create',
-        resource: 'get'
-    }),
     (0, common_1.Get)('/all'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),

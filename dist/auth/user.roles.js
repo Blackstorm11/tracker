@@ -9,10 +9,10 @@ var UserRoles;
 })(UserRoles = exports.UserRoles || (exports.UserRoles = {}));
 exports.roles = new nest_access_control_1.RolesBuilder();
 exports.roles.grant(UserRoles.Reader)
-    .readAny(['posts', 'get'])
+    .readAny(["posts"])
     .grant(UserRoles.Admin)
     .extend(UserRoles.Reader)
-    .updateAny(['posts'])
-    .createAny(['posts'])
-    .deleteAny(['posts']);
+    .updateAny(["posts"])
+    .createAny(["posts"])
+    .deleteAny(["posts"]);
 //# sourceMappingURL=user.roles.js.map

@@ -1,9 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete,ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,ValidationPipe, UseGuards } from '@nestjs/common';
 import { SusersService } from './suser.service';
 import { CreateSuserDto } from './dto/create-suser.dto';
 import { UpdateSuserDto } from './dto/update-suser.dto';
 import { Suser } from './entities/suser.entity';
 import { ApiSecurity, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
+import { ACGuard, UseRoles } from 'nest-access-control';
+
 
 @Controller('suser')
 @ApiTags("system users")
@@ -11,6 +14,13 @@ import { ApiSecurity, ApiTags } from '@nestjs/swagger';
 export class SusersController {
   constructor(private readonly susersService: SusersService) {}
   // @ApiSecurity("JWT-auth")
+
+  @UseGuards(AuthGuard("jwt"), ACGuard)
+  @UseRoles({
+    possession: 'any',
+    action:'create',
+    resource: 'posts'
+  })
   @Post('/signup')
   public async create(@Body(ValidationPipe) createSuserDto: CreateSuserDto,trackid:string) {
     return this.susersService.create(createSuserDto,trackid);

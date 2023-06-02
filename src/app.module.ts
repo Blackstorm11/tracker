@@ -11,6 +11,7 @@ import { RegistrationModule } from './registration/registration.module';
 import { AttendanceLogModule } from './attendance-log/attendance-log.module';
 import { AccessControlModule } from 'nest-access-control';
 import { roles } from './auth/user.roles';
+import { FacultyMModule } from './faculty-m/faculty-m.module';
 
 
 
@@ -42,6 +43,7 @@ import { roles } from './auth/user.roles';
     AccessControlModule.forRoles(roles),
     RegistrationModule,
     AttendanceLogModule,
+    FacultyMModule,
   ],
 
 })

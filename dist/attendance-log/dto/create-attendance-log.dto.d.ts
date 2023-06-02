@@ -4,4 +4,6 @@ export declare class CreateAttendanceLogDto {
     Status: string;
     updateTime: Date;
     created_at: string;
+    subject: string;
+    facultyMId: string;
 }

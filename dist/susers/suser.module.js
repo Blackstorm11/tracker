@@ -13,11 +13,14 @@ const suser_controller_1 = require("./suser.controller");
 const track_module_1 = require("../track/track.module");
 const typeorm_1 = require("@nestjs/typeorm");
 const suser_entity_1 = require("./entities/suser.entity");
+const nest_access_control_1 = require("nest-access-control");
+const user_roles_1 = require("../auth/user.roles");
+const passport_1 = require("@nestjs/passport");
 let SusersModule = class SusersModule {
 };
 SusersModule = __decorate([
     (0, common_1.Module)({
-        imports: [track_module_1.TrackModule, typeorm_1.TypeOrmModule.forFeature([suser_entity_1.Suser])],
+        imports: [nest_access_control_1.AccessControlModule.forRoles(user_roles_1.roles), track_module_1.TrackModule, typeorm_1.TypeOrmModule.forFeature([suser_entity_1.Suser]), passport_1.PassportModule],
         controllers: [suser_controller_1.SusersController],
         providers: [suser_service_1.SusersService],
         exports: [suser_service_1.SusersService]

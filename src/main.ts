@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
 
-  app.useGlobalGuards(new JwtAuthGuard())
+  // app.useGlobalGuards(new JwtAuthGuard())
 
   const options = new DocumentBuilder()
   .setTitle("GitExtention")

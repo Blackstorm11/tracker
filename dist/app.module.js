@@ -17,6 +17,7 @@ const registration_module_1 = require("./registration/registration.module");
 const attendance_log_module_1 = require("./attendance-log/attendance-log.module");
 const nest_access_control_1 = require("nest-access-control");
 const user_roles_1 = require("./auth/user.roles");
+const faculty_m_module_1 = require("./faculty-m/faculty-m.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -44,7 +45,8 @@ AppModule = __decorate([
             suser_module_1.SusersModule,
             nest_access_control_1.AccessControlModule.forRoles(user_roles_1.roles),
             registration_module_1.RegistrationModule,
-            attendance_log_module_1.AttendanceLogModule,],
+            attendance_log_module_1.AttendanceLogModule,
+            faculty_m_module_1.FacultyMModule,],
     })
 ], AppModule);
 exports.AppModule = AppModule;

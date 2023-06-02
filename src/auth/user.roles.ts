@@ -1,17 +1,18 @@
 import { RolesBuilder } from "nest-access-control";
 
+
 export enum UserRoles{
-   Admin='Admin',
-   Reader='Reader'
+   Admin="Admin",
+   Reader="Reader"
 }
-export const roles:RolesBuilder=new RolesBuilder()
+export const roles:RolesBuilder= new RolesBuilder()
 
 
 roles.grant(UserRoles.Reader)
-      .readAny(['posts', 'get'])
+      .readAny(["posts"])
       .grant(UserRoles.Admin)
       .extend(UserRoles.Reader)
-      .updateAny(['posts'])
-      .createAny(['posts'])
-      .deleteAny(['posts'])
+      .updateAny(["posts"])
+      .createAny(["posts"])
+      .deleteAny(["posts"])
       

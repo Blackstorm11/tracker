@@ -40,12 +40,7 @@ export class TrackController {
   }
 
   @ApiSecurity("JWT-auth")
-  @UseGuards(AuthGuard('jwt'),ACGuard)
-  @UseRoles({
-    possession:'any',
-    action:'create',
-    resource:'get'
-  })
+ 
   @Get('/all')
   public async findAll() {
     const resp= await this.trackService.findAll();

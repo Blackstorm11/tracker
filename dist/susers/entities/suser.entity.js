@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Suser = void 0;
+const user_roles_1 = require("../../auth/user.roles");
 const track_entity_1 = require("../../track/entities/track.entity");
 const typeorm_1 = require("typeorm");
 let Suser = class Suser {
@@ -38,6 +39,10 @@ __decorate([
     (0, typeorm_1.Column)("varchar"),
     __metadata("design:type", String)
 ], Suser.prototype, "email", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'enum', enum: user_roles_1.UserRoles, default: user_roles_1.UserRoles.Admin }),
+    __metadata("design:type", String)
+], Suser.prototype, "roles", void 0);
 __decorate([
     (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(2)', select: false }),
     __metadata("design:type", Date)

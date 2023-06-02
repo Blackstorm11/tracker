@@ -19,7 +19,7 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
         super({
             jwtFromRequest: passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken(),
             ignoreExpiration: false,
-            secretOrKey: configService.get("JWT_KEY")
+            secretOrKey: configService.get('JWT_KEY'),
         });
         this.configService = configService;
     }
@@ -27,7 +27,7 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
         return {
             id: payload.id,
             email: payload.email,
-            role: payload.role,
+            roles: payload.role,
         };
     }
 };

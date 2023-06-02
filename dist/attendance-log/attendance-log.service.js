@@ -22,7 +22,7 @@ let AttendanceLogService = class AttendanceLogService {
     constructor(attendancelogRepository) {
         this.attendancelogRepository = attendancelogRepository;
     }
-    async create(createAttendanceLogRequest) {
+    async create(createAttendanceLogRequest, facultyM) {
         if (typeof createAttendanceLogRequest.person === 'string' && createAttendanceLogRequest.person.includes("unknown")) {
             return null;
         }
@@ -31,23 +31,31 @@ let AttendanceLogService = class AttendanceLogService {
                 created_at: 'ASC'
             }
         });
+        if (!facultyM) {
+            throw new common_1.NotFoundException('Faculty not found');
+        }
+        console.log('facultyM:', facultyM);
         let attendanceLog = new attendance_log_entity_1.AttendanceLog();
         attendanceLog.person = createAttendanceLogRequest.person;
         attendanceLog.Status = createAttendanceLogRequest.Status;
         attendanceLog.created_at = createAttendanceLogRequest.created_at;
+        attendanceLog.subject = createAttendanceLogRequest.subject;
+        attendanceLog.facultyMId = createAttendanceLogRequest.facultyMId;
+        facultyM.attendanceLog.push(attendanceLog);
         await this.attendancelogRepository.save(attendanceLog);
         const attendanceDTO = new attendance_dto_1.AttendanceDTO();
         attendanceDTO._id = attendanceLog._id;
         attendanceDTO.Status = attendanceLog.Status;
         attendanceDTO.person = attendanceLog.person;
         attendanceDTO.created_at = attendanceLog.created_at;
+        attendanceDTO.facultyMId = attendanceLog.facultyMId;
         return attendanceDTO;
     }
     findAll() {
         return this.attendancelogRepository.find();
     }
-    findOne(id) {
-        return `This action returns a #${id} attendanceLog`;
+    async findOneById(id) {
+        return await this.attendancelogRepository.findOne({ where: { _id: id } });
     }
     update(id, updateAttendanceLogDto) {
         return `This action updates a #${id} attendanceLog`;

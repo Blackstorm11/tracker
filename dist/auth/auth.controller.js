@@ -24,11 +24,14 @@ let AuthController = class AuthController {
     }
     login(req, LoginDto) {
         const user = req.user;
+        console.log('User Roles:', user.roles);
         const payload = {
             id: user._id,
             email: user.email,
+            role: user.roles
         };
         console.log(req.user);
+        console.log('Payload:', payload);
         return { token: this.jwtService.sign(payload) };
     }
 };

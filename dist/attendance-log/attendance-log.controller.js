@@ -15,23 +15,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AttendanceLogController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const faculty_m_service_1 = require("../faculty-m/faculty-m.service");
 const attendance_log_service_1 = require("./attendance-log.service");
 const create_attendance_log_dto_1 = require("./dto/create-attendance-log.dto");
 const update_attendance_log_dto_1 = require("./dto/update-attendance-log.dto");
 let AttendanceLogController = class AttendanceLogController {
-    constructor(attendanceLogService) {
+    constructor(attendanceLogService, facultyMService) {
         this.attendanceLogService = attendanceLogService;
+        this.facultyMService = facultyMService;
     }
-    async create(createAttendanceLogRequest) {
-        const resp = await this.attendanceLogService.create(createAttendanceLogRequest);
+    async create(attendanceLog) {
+        console.log('facultyMId:', attendanceLog.facultyMId);
+        const facultyM = await this.facultyMService.findFacultyById(attendanceLog.facultyMId);
+        const resp = await this.attendanceLogService.create(attendanceLog, facultyM);
         return resp;
     }
     async findAll() {
         const resp = await this.attendanceLogService.findAll();
-        return resp;
-    }
-    async findOne(id) {
-        const resp = await this.attendanceLogService.findOne(+id);
         return resp;
     }
     async update(id, updateAttendanceLogDto) {
@@ -57,13 +57,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AttendanceLogController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", Promise)
-], AttendanceLogController.prototype, "findOne", null);
-__decorate([
     (0, common_1.Patch)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
@@ -82,7 +75,7 @@ AttendanceLogController = __decorate([
     (0, common_1.Controller)('attendanceLog'),
     (0, swagger_1.ApiTags)("attendance_log"),
     (0, swagger_1.ApiSecurity)("JWT-auth"),
-    __metadata("design:paramtypes", [attendance_log_service_1.AttendanceLogService])
+    __metadata("design:paramtypes", [attendance_log_service_1.AttendanceLogService, faculty_m_service_1.FacultyMService])
 ], AttendanceLogController);
 exports.AttendanceLogController = AttendanceLogController;
 //# sourceMappingURL=attendance-log.controller.js.map

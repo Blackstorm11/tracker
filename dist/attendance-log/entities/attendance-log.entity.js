@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AttendanceLog = void 0;
 const typeorm_1 = require("typeorm");
 const date_fns_1 = require("date-fns");
+const faculty_m_entity_1 = require("../../faculty-m/entities/faculty-m.entity");
 let AttendanceLog = class AttendanceLog {
     setUpdateTimestamp() {
         this.updateTime = new Date();
@@ -35,6 +36,10 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
+], AttendanceLog.prototype, "subject", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
 ], AttendanceLog.prototype, "created_at", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'timestamp' }),
@@ -47,6 +52,15 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], AttendanceLog.prototype, "setUpdateTimestamp", null);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => faculty_m_entity_1.FacultyM, (facultyM) => facultyM.attendanceLog),
+    (0, typeorm_1.JoinColumn)({ name: 'subject' }),
+    __metadata("design:type", Array)
+], AttendanceLog.prototype, "facultyM", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], AttendanceLog.prototype, "facultyMId", void 0);
 AttendanceLog = __decorate([
     (0, typeorm_1.Entity)("Attendance Log")
 ], AttendanceLog);

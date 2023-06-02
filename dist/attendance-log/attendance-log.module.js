@@ -12,11 +12,12 @@ const attendance_log_service_1 = require("./attendance-log.service");
 const attendance_log_controller_1 = require("./attendance-log.controller");
 const typeorm_1 = require("@nestjs/typeorm");
 const attendance_log_entity_1 = require("./entities/attendance-log.entity");
+const faculty_m_module_1 = require("../faculty-m/faculty-m.module");
 let AttendanceLogModule = class AttendanceLogModule {
 };
 AttendanceLogModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([attendance_log_entity_1.AttendanceLog]),],
+        imports: [typeorm_1.TypeOrmModule.forFeature([attendance_log_entity_1.AttendanceLog]), faculty_m_module_1.FacultyMModule],
         controllers: [attendance_log_controller_1.AttendanceLogController],
         providers: [attendance_log_service_1.AttendanceLogService],
         exports: [attendance_log_service_1.AttendanceLogService]

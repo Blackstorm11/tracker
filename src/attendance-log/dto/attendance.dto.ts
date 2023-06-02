@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { IsNotEmpty } from "class-validator";
 import { Column, CreateDateColumn, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
 
 export class AttendanceDTO{
@@ -20,4 +21,9 @@ updateTime: Date;
 @Column()
 created_at: string;
 
+@Column()
+subject:string;
+
+@Column()
+facultyMId:string;
 }

@@ -12,16 +12,17 @@ const passport_1 = require("@nestjs/passport");
 const constants_1 = require("../../utils/constants");
 let JwtAuthGuard = class JwtAuthGuard extends (0, passport_1.AuthGuard)('jwt') {
     canActivate(context) {
-        const ctx = context.switchToHttp();
-        const request = ctx.getRequest();
+        const request = context.switchToHttp().getRequest();
         if (request.url.includes('/email/')) {
             return true;
         }
-        for (let x = 0; x < constants_1.Constants.URLS.length; x++) {
-            if (request.url == constants_1.Constants.URLS[x])
-                return true;
+        const user = request.user;
+        const userRole = user === null || user === void 0 ? void 0 : user.role;
+        if (userRole === 'Admin') {
+            return true;
         }
-        return super.canActivate(context);
+        const isAllowed = constants_1.Constants.URLS.some(url => request.url.includes(url));
+        return isAllowed;
     }
 };
 JwtAuthGuard = __decorate([

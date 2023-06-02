@@ -1,4 +1,5 @@
 
+import { UserRoles } from "src/auth/user.roles";
 import { Track } from "src/track/entities/track.entity";
 import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
@@ -20,10 +21,11 @@ export class Suser {
     password:string;
     @Column("varchar")
     email:string;
-   
+    @Column({type:'enum', enum:UserRoles, default:UserRoles.Admin})
+    roles:UserRoles
     @UpdateDateColumn({type: 'timestamp', default:() => 'CURRENT_TIMESTAMP(2)',select:false})
     updateTime:Date;
-    role: string;
+   
 
     @ManyToOne(()=> Track,(track)=> track.suser)
     track : Track;
