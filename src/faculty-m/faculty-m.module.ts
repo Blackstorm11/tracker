@@ -6,11 +6,12 @@ import { FacultyM } from './entities/faculty-m.entity';
 
 import { AccessControlModule } from 'nest-access-control';
 import { roles } from 'src/auth/user.roles';
+import { PassportModule } from '@nestjs/passport';
 
 
 
 @Module({
-  imports:[TypeOrmModule.forFeature([FacultyM] ),AccessControlModule.forRoles(roles)],
+  imports:[TypeOrmModule.forFeature([FacultyM] ),AccessControlModule.forRoles(roles),PassportModule],
   controllers: [FacultyMController],
   providers: [FacultyMService],
   exports:[FacultyMService]

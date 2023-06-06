@@ -25,10 +25,8 @@ let AttendanceLogController = class AttendanceLogController {
         this.facultyMService = facultyMService;
     }
     async create(attendanceLog) {
-        console.log('facultyMId:', attendanceLog.facultyMId);
-        const facultyM = await this.facultyMService.findFacultyById(attendanceLog.facultyMId);
-        const resp = await this.attendanceLogService.create(attendanceLog, facultyM);
-        return resp;
+        const facultyM = await this.facultyMService.getfacultyBySubject(attendanceLog.subject);
+        return await this.attendanceLogService.create(attendanceLog, facultyM);
     }
     async findAll() {
         const resp = await this.attendanceLogService.findAll();
@@ -44,7 +42,7 @@ let AttendanceLogController = class AttendanceLogController {
     }
 };
 __decorate([
-    (0, common_1.Post)('/logs'),
+    (0, common_1.Post)('/addLogs'),
     __param(0, (0, common_1.Body)(new common_1.ValidationPipe())),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_attendance_log_dto_1.CreateAttendanceLogDto]),

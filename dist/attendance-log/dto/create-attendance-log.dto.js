@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateAttendanceLogDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
-const class_validator_1 = require("class-validator");
 const typeorm_1 = require("typeorm");
 class CreateAttendanceLogDto {
 }
@@ -44,9 +43,5 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], CreateAttendanceLogDto.prototype, "subject", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], CreateAttendanceLogDto.prototype, "facultyMId", void 0);
 exports.CreateAttendanceLogDto = CreateAttendanceLogDto;
 //# sourceMappingURL=create-attendance-log.dto.js.map

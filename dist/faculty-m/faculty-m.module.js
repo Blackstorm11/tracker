@@ -14,11 +14,12 @@ const typeorm_1 = require("@nestjs/typeorm");
 const faculty_m_entity_1 = require("./entities/faculty-m.entity");
 const nest_access_control_1 = require("nest-access-control");
 const user_roles_1 = require("../auth/user.roles");
+const passport_1 = require("@nestjs/passport");
 let FacultyMModule = class FacultyMModule {
 };
 FacultyMModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([faculty_m_entity_1.FacultyM]), nest_access_control_1.AccessControlModule.forRoles(user_roles_1.roles)],
+        imports: [typeorm_1.TypeOrmModule.forFeature([faculty_m_entity_1.FacultyM]), nest_access_control_1.AccessControlModule.forRoles(user_roles_1.roles), passport_1.PassportModule],
         controllers: [faculty_m_controller_1.FacultyMController],
         providers: [faculty_m_service_1.FacultyMService],
         exports: [faculty_m_service_1.FacultyMService]

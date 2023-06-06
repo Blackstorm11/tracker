@@ -32,7 +32,10 @@ let FacultyMController = class FacultyMController {
         return await this.facultyMService.findFacultyById(id);
     }
     async findfacultyM(subject) {
-        return await this.facultyMService.getfacultyById(subject);
+        return await this.facultyMService.getfacultyBySubject(subject);
+    }
+    async findFacultyBYemail(email) {
+        return await this.facultyMService.findFacultyByEmail(email);
     }
     update(id, updateFacultyMDto) {
         return this.facultyMService.update(+id, updateFacultyMDto);
@@ -68,6 +71,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], FacultyMController.prototype, "findfacultyM", null);
+__decorate([
+    (0, common_1.Get)('email/:email'),
+    __param(0, (0, common_1.Param)('email')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], FacultyMController.prototype, "findFacultyBYemail", null);
 __decorate([
     (0, common_1.Patch)(':id'),
     __param(0, (0, common_1.Param)('id')),

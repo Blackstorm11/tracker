@@ -23,6 +23,6 @@ created_at: string;
 @Column()
 subject:string
 
-@IsNotEmpty()
-facultyMId:string;
+// @IsNotEmpty()
+// facultyMId:string;
 }

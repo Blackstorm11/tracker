@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FacultyM = void 0;
+const user_roles_1 = require("../../auth/user.roles");
 const attendance_log_entity_1 = require("../../attendance-log/entities/attendance-log.entity");
 const typeorm_1 = require("typeorm");
 let FacultyM = class FacultyM {
@@ -17,7 +18,7 @@ let FacultyM = class FacultyM {
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
     __metadata("design:type", String)
-], FacultyM.prototype, "id", void 0);
+], FacultyM.prototype, "_id", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: "varchar" }),
     __metadata("design:type", String)
@@ -35,10 +36,15 @@ __decorate([
     __metadata("design:type", String)
 ], FacultyM.prototype, "subject", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ type: 'enum', enum: user_roles_1.UserRoles, default: user_roles_1.UserRoles.RW }),
+    __metadata("design:type", String)
+], FacultyM.prototype, "roles", void 0);
+__decorate([
     (0, typeorm_1.OneToMany)(() => attendance_log_entity_1.AttendanceLog, (attendanceLog) => attendanceLog.facultyM),
     __metadata("design:type", Array)
 ], FacultyM.prototype, "attendanceLog", void 0);
 FacultyM = __decorate([
+    (0, typeorm_1.Unique)(['subject']),
     (0, typeorm_1.Entity)("Faculty Members")
 ], FacultyM);
 exports.FacultyM = FacultyM;

@@ -27,7 +27,7 @@ export class AttendanceLogService {
   //   return attendanceDTO;
   // }
   public async create(createAttendanceLogRequest: CreateAttendanceLogDto,facultyM:FacultyM) {
-    if (typeof createAttendanceLogRequest.person === 'string' && createAttendanceLogRequest.person.includes("unknown")) {
+    if (createAttendanceLogRequest.person.includes("unknown")) {
       // Don't save if person contains "unknown"
       return null;
     }
@@ -49,9 +49,11 @@ export class AttendanceLogService {
     attendanceLog.person = createAttendanceLogRequest.person;
     attendanceLog.Status=createAttendanceLogRequest.Status;
     attendanceLog.created_at=createAttendanceLogRequest.created_at;
-    attendanceLog.subject=createAttendanceLogRequest.subject;
-    attendanceLog.facultyMId=createAttendanceLogRequest.facultyMId
-    // facultyM.attendanceLog=[...facultyM.attendanceLog,attendanceLog]
+    // attendanceLog.subject=createAttendanceLogRequest.subject;
+    attendanceLog.subject=createAttendanceLogRequest.subject
+    // attendanceLog.facultyMId=createAttendanceLogRequest.facultyMId
+    
+
     facultyM.attendanceLog.push(attendanceLog); // Use push to add the attendance log to the faculty member's array
 
 
@@ -62,7 +64,7 @@ export class AttendanceLogService {
     attendanceDTO.Status=attendanceLog.Status;
     attendanceDTO.person=attendanceLog.person;
     attendanceDTO.created_at=attendanceLog.created_at;
-    attendanceDTO.facultyMId=attendanceLog.facultyMId;
+    // attendanceDTO.facultyMId=attendanceLog.facultyMId;
     return attendanceDTO;
   }
   
@@ -75,6 +77,7 @@ export class AttendanceLogService {
   async findOneById(id: string):Promise<AttendanceLog>{
     return await this.attendancelogRepository.findOne({where:{_id:id}})
   }
+  
 
   update(id: number, updateAttendanceLogDto: UpdateAttendanceLogDto) {
     return `This action updates a #${id} attendanceLog`;

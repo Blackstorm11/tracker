@@ -34,10 +34,10 @@ get formattedUpdateTime(): string {
   return format(this.updateTime, 'HH:mm:ss.SS');
 }
 @ManyToOne(() => FacultyM, (facultyM) => facultyM.attendanceLog)
-@JoinColumn({name:'subject'})
+@JoinColumn({name:'subject',referencedColumnName:'subject'})
 facultyM: FacultyM[];
 
-@Column()
-facultyMId:string;
+// @Column()
+// FacultyMId:string;
 
 }

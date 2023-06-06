@@ -13,6 +13,7 @@ const typeorm_1 = require("@nestjs/typeorm");
 const track_module_1 = require("./track/track.module");
 const suser_module_1 = require("./susers/suser.module");
 const auth_module_1 = require("./auth/auth.module");
+const mailer_1 = require("@nestjs-modules/mailer");
 const registration_module_1 = require("./registration/registration.module");
 const attendance_log_module_1 = require("./attendance-log/attendance-log.module");
 const nest_access_control_1 = require("nest-access-control");
@@ -27,6 +28,17 @@ AppModule = __decorate([
                 imports: [config_1.ConfigModule.forRoot({
                         isGlobal: true,
                         envFilePath: ".local.env",
+                    }),
+                    mailer_1.MailerModule.forRoot({
+                        transport: {
+                            host: 'smtp.gmail.com',
+                            port: 465,
+                            secure: true,
+                            auth: {
+                                user: 'omkarredkar907@gmail.com',
+                                pass: 'epvsvpiusrepbv123rojfnv'
+                            }
+                        }
                     })
                 ],
                 useFactory: (configService) => ({

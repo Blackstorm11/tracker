@@ -27,7 +27,11 @@ export class FacultyMController {
     }
   @Get('get/:subject')
     async findfacultyM(@Param('subject') subject:string){
-      return await this.facultyMService.getfacultyById(subject)
+      return await this.facultyMService.getfacultyBySubject(subject)
+    }
+  @Get('email/:email')
+    async findFacultyBYemail(@Param('email') email:string){
+      return await this.facultyMService.findFacultyByEmail(email)
     }
 
   @Patch(':id')

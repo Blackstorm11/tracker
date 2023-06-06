@@ -24,6 +24,6 @@ created_at: string;
 @Column()
 subject:string;
 
-@Column()
-facultyMId:string;
+// @Column()
+// facultyMId:string;
 }

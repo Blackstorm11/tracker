@@ -12,22 +12,22 @@ import { AttendanceLog } from './entities/attendance-log.entity';
 export class AttendanceLogController {
   constructor(private attendanceLogService: AttendanceLogService,private facultyMService:FacultyMService) {}
 
-  @Post('/logs')
-  public async create(@Body(new ValidationPipe()) attendanceLog: CreateAttendanceLogDto) {
-    // createAttendanceLogRequest.person = JSON.stringify(createAttendanceLogRequest.person); // stringify recognizedPersons array
-    console.log('facultyMId:', attendanceLog.facultyMId);
+  // @Post('/logs')
+  // public async create(@Body(new ValidationPipe()) attendanceLog: CreateAttendanceLogDto) {
+  //   // createAttendanceLogRequest.person = JSON.stringify(createAttendanceLogRequest.person); // stringify recognizedPersons array
+  //   console.log('facultyMId:', attendanceLog.facultyMId);
 
-    const facultyM=await this.facultyMService.findFacultyById(attendanceLog.facultyMId)
-
-    const resp= await this.attendanceLogService.create(attendanceLog,facultyM);
-    return resp;
-  }
-  // @Post("")
-  // @UsePipes(ValidationPipe)
-  // async saveAttendancelog(@Body() attendanceLog:CreateAttendanceLogDto):Promise<AttendanceLog>{
   //   const facultyM=await this.facultyMService.findFacultyById(attendanceLog.facultyMId)
-  //   return await this.attendanceLogService.createAttendanceLog(attendanceLog,facultyM);
+
+  //   const resp= await this.attendanceLogService.create(attendanceLog,facultyM);
+  //   return resp;
   // }
+  @Post('/addLogs')
+  public async create(@Body(new ValidationPipe()) attendanceLog:CreateAttendanceLogDto){
+    const facultyM=await this.facultyMService.getfacultyBySubject(attendanceLog.subject)
+    // attendanceLog.person=JSON.stringify(attendanceLog.person)
+    return await this.attendanceLogService.create(attendanceLog,facultyM)
+  }
 
   @Get()
   public async findAll() {

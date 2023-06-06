@@ -9,5 +9,4 @@ export declare class AttendanceLog {
     setUpdateTimestamp(): void;
     get formattedUpdateTime(): string;
     facultyM: FacultyM[];
-    facultyMId: string;
 }

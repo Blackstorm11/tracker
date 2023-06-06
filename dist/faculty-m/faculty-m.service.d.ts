@@ -8,7 +8,8 @@ export declare class FacultyMService {
     create(createFacultyMDto: CreateFacultyMDto): Promise<FacultyM>;
     findAll(): Promise<FacultyM[]>;
     findFacultyById(id: string): Promise<FacultyM>;
-    getfacultyById(subject: string): Promise<FacultyM>;
+    getfacultyBySubject(subject: string): Promise<FacultyM>;
+    findFacultyByEmail(email: string): Promise<FacultyM>;
     update(id: number, updateFacultyMDto: UpdateFacultyMDto): string;
     remove(id: number): string;
 }

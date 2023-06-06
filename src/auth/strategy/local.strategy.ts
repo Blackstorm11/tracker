@@ -45,13 +45,16 @@ import { Suser } from "src/susers/entities/suser.entity";
 import { Track } from "src/track/entities/track.entity";
 import { SusersService } from "src/susers/suser.service";
 import { TrackService } from "src/track/track.service";
+import { FacultyM } from "src/faculty-m/entities/faculty-m.entity";
+import { FacultyMService } from "src/faculty-m/faculty-m.service";
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy){
     
     constructor (
         private suserService:SusersService,
-        private userService: TrackService
+        private userService: TrackService,
+        private facultyService:FacultyMService
     ){
         super({
             usernameField: "email",
@@ -59,12 +62,15 @@ export class LocalStrategy extends PassportStrategy(Strategy){
         })
     }
 
-    async validate(email:string, password:string):Promise<Suser | Track>{
+    async validate(email:string, password:string):Promise<Suser | Track |FacultyM>{
         const suser: Suser = await this.suserService.findSuserByEmail(email);
         if (suser && suser.password== password) return suser;
 
         const track: Track = await this.userService.findTrackByEmail(email);
         if (track && track.password== password) return track;
+
+        const facultyM:FacultyM=await this.facultyService.findFacultyByEmail(email);
+        if(facultyM && facultyM.password==password) return facultyM
 
         throw new UnauthorizedException('Invalid email or password');
     }

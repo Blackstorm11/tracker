@@ -17,10 +17,12 @@ const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
 const passport_1 = require("@nestjs/passport");
 const swagger_1 = require("@nestjs/swagger");
+const auth_service_1 = require("./auth.service");
 const login_dto_1 = require("./dto/login.dto");
 let AuthController = class AuthController {
-    constructor(jwtService) {
+    constructor(jwtService, authService) {
         this.jwtService = jwtService;
+        this.authService = authService;
     }
     login(req, LoginDto) {
         const user = req.user;
@@ -34,6 +36,9 @@ let AuthController = class AuthController {
         console.log('Payload:', payload);
         return { token: this.jwtService.sign(payload) };
     }
+    async sendPasswordResetEmail(email) {
+        await this.authService.sendPasswordResetEmail(email);
+    }
 };
 __decorate([
     (0, common_1.Post)('/login'),
@@ -44,10 +49,17 @@ __decorate([
     __metadata("design:paramtypes", [Object, login_dto_1.LoginDto]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "login", null);
+__decorate([
+    (0, common_1.Post)('/forget_password'),
+    __param(0, (0, common_1.Body)("email")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "sendPasswordResetEmail", null);
 AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     (0, swagger_1.ApiTags)('Login'),
-    __metadata("design:paramtypes", [jwt_1.JwtService])
+    __metadata("design:paramtypes", [jwt_1.JwtService, auth_service_1.AuthService])
 ], AuthController);
 exports.AuthController = AuthController;
 //# sourceMappingURL=auth.controller.js.map

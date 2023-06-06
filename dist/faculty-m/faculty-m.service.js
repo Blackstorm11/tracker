@@ -35,15 +35,18 @@ let FacultyMService = class FacultyMService {
     async findFacultyById(id) {
         console.log('id:', id);
         return await this.facultyMRepository.findOne({
-            where: { id },
+            where: { _id: id },
             relations: ['attendanceLog'],
         });
     }
-    async getfacultyById(subject) {
+    async getfacultyBySubject(subject) {
         return await this.facultyMRepository.findOne({
             where: { subject },
             relations: ['attendanceLog']
         });
+    }
+    async findFacultyByEmail(email) {
+        return await this.facultyMRepository.findOne({ where: { email } });
     }
     update(id, updateFacultyMDto) {
         return `This action updates a #${id} facultyM`;

@@ -30,16 +30,19 @@ export class FacultyMService {
     console.log('id:', id);
     
     return await this.facultyMRepository.findOne({
-      where: { id },
+      where: { _id:id },
       relations: ['attendanceLog'],
       
     });
   }
-  async getfacultyById(subject:string):Promise<FacultyM>{
+  async getfacultyBySubject(subject:string):Promise<FacultyM>{
     return await this.facultyMRepository.findOne({
       where:{subject},
       relations: ['attendanceLog']
     })
+  }
+  async findFacultyByEmail(email:string):Promise<FacultyM>{
+    return await this.facultyMRepository.findOne({where:{email}})
   }
 
   update(id: number, updateFacultyMDto: UpdateFacultyMDto) {

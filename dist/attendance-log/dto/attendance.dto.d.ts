@@ -5,5 +5,4 @@ export declare class AttendanceDTO {
     updateTime: Date;
     created_at: string;
     subject: string;
-    facultyMId: string;
 }

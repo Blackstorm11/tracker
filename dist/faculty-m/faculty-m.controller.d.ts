@@ -9,6 +9,7 @@ export declare class FacultyMController {
     findAll(): Promise<FacultyM[]>;
     findOne(id: string): Promise<FacultyM>;
     findfacultyM(subject: string): Promise<FacultyM>;
+    findFacultyBYemail(email: string): Promise<FacultyM>;
     update(id: string, updateFacultyMDto: UpdateFacultyMDto): string;
     remove(id: string): string;
 }

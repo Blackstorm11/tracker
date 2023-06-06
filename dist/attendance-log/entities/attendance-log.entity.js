@@ -54,13 +54,9 @@ __decorate([
 ], AttendanceLog.prototype, "setUpdateTimestamp", null);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => faculty_m_entity_1.FacultyM, (facultyM) => facultyM.attendanceLog),
-    (0, typeorm_1.JoinColumn)({ name: 'subject' }),
+    (0, typeorm_1.JoinColumn)({ name: 'subject', referencedColumnName: 'subject' }),
     __metadata("design:type", Array)
 ], AttendanceLog.prototype, "facultyM", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], AttendanceLog.prototype, "facultyMId", void 0);
 AttendanceLog = __decorate([
     (0, typeorm_1.Entity)("Attendance Log")
 ], AttendanceLog);

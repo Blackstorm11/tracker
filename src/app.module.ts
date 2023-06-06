@@ -6,7 +6,7 @@ import { TrackModule } from './track/track.module';
 import { SusersModule } from './susers/suser.module';
 
 import { AuthModule } from './auth/auth.module';
-
+import {MailerModule} from '@nestjs-modules/mailer'
 import { RegistrationModule } from './registration/registration.module';
 import { AttendanceLogModule } from './attendance-log/attendance-log.module';
 import { AccessControlModule } from 'nest-access-control';
@@ -23,6 +23,17 @@ import { FacultyMModule } from './faculty-m/faculty-m.module';
         isGlobal:true,
         envFilePath:".local.env",
         //envFilePath:".prod.env",
+      }),
+      MailerModule.forRoot({
+        transport:{
+          host:'smtp.gmail.com',
+          port: 465, // Use port 465 for secure SSL/TLS connection
+          secure: true,
+          auth:{
+            user:'omkarredkar907@gmail.com',
+            pass:'epvsvpiusrepbv123rojfnv'
+          }
+        }
       })
         ],
       useFactory: (configService: ConfigService) => ({

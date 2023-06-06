@@ -15,14 +15,16 @@ const passport_1 = require("@nestjs/passport");
 const passport_local_1 = require("passport-local");
 const suser_service_1 = require("../../susers/suser.service");
 const track_service_1 = require("../../track/track.service");
+const faculty_m_service_1 = require("../../faculty-m/faculty-m.service");
 let LocalStrategy = class LocalStrategy extends (0, passport_1.PassportStrategy)(passport_local_1.Strategy) {
-    constructor(suserService, userService) {
+    constructor(suserService, userService, facultyService) {
         super({
             usernameField: "email",
             passwordField: "password"
         });
         this.suserService = suserService;
         this.userService = userService;
+        this.facultyService = facultyService;
     }
     async validate(email, password) {
         const suser = await this.suserService.findSuserByEmail(email);
@@ -31,13 +33,17 @@ let LocalStrategy = class LocalStrategy extends (0, passport_1.PassportStrategy)
         const track = await this.userService.findTrackByEmail(email);
         if (track && track.password == password)
             return track;
+        const facultyM = await this.facultyService.findFacultyByEmail(email);
+        if (facultyM && facultyM.password == password)
+            return facultyM;
         throw new common_1.UnauthorizedException('Invalid email or password');
     }
 };
 LocalStrategy = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [suser_service_1.SusersService,
-        track_service_1.TrackService])
+        track_service_1.TrackService,
+        faculty_m_service_1.FacultyMService])
 ], LocalStrategy);
 exports.LocalStrategy = LocalStrategy;
 //# sourceMappingURL=local.strategy.js.map
